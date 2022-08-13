@@ -1,5 +1,5 @@
-import './App.css';
-import Course from './Course';
+import '../App.css';
+import Course from './Course.js';
 
 const App = () => {
   const course = {
