@@ -1,35 +1,41 @@
+import { useState } from 'react';
 import '../App.css';
-import Course from './Course.js';
+import Display from './Display';
 
-const App = () => {
-  const course = {
-    id: 1,
-    name: 'Half Stack application development',
-    parts: [
-      {
-        name: 'Fundamentals of React',
-        exercises: 10,
-        id: 1
-      },
-      {
-        name: 'Using props to pass data',
-        exercises: 7,
-        id: 2
-      },
-      {
-        name: 'State of a component',
-        exercises: 14,
-        id: 3
-      },
-      {
-        name: 'Redux',
-        exercises: 10,
-        id: 4
-      }
-    ]
+const App = (props) => {
+
+  const [notes, setNotes] = useState(props.notes);
+
+  const [noteContent, setNoteContent] = useState("")
+
+  const handleNoteChange = (event) => {
+    setNoteContent(event.target.value)
   }
 
-  return <Course course={course} />
+  const addNote = (event) => {
+    event.preventDefault()
+
+    const newNote = {
+      id : notes.length + 1,
+      content : noteContent,
+      important : false
+    }
+
+    setNotes(notes.concat(newNote))
+    setNoteContent("")
+  }
+
+  return <div>
+
+  <Display notes = {notes}></Display>
+
+  <form onSubmit={addNote}>
+    <input value={noteContent} onChange={handleNoteChange}></input>
+    <button type="submit">save</button>
+  </form>
+
+
+  </div>
 }
 
 export default App

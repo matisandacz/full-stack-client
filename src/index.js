@@ -4,4 +4,10 @@ import './index.css';
 import App from './components/App';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<App/>)
+
+const notes = [
+    {id:1, content:"This is an important note", important : true},
+    {id:2, content:"This is not an important note", impotant: false}
+]
+
+root.render(<App notes={notes}/>)
