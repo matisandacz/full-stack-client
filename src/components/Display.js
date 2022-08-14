@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-const Display = ({notes}) => {
+const Display = ({notes, toggleImportanceOf}) => {
 
     const [showAll, setShowAll] = useState(true)
 
@@ -15,8 +15,9 @@ const Display = ({notes}) => {
         <button onClick = {handleOnClick} >Show {showAll ? "Important" : "All"}</button>
         <ul>
             {notesToShow.map(note => 
-                <li key = {note.id}>
+                <li className = 'note' key = {note.id}>
                     {note.content}
+                    <button onClick = {() => toggleImportanceOf(note.id)}>{note.important? 'make not important' : 'make important'}</button>
                 </li>
             )}
         </ul>
