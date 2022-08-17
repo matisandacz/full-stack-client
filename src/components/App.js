@@ -11,7 +11,7 @@ const App = () => {
   const [noteContent, setNoteContent] = useState("")
 
   useEffect(() => {
-    axios.get('http://localhost:3001/notes').then(
+    axios.get('https://frozen-spire-53974.herokuapp.com/api/notes').then(
     response => setNotes(response.data))
   }, [])
 
@@ -27,7 +27,7 @@ const App = () => {
       important : false
     }
 
-    axios.post('http://localhost:3001/notes', newNote)
+    axios.post('/api/notes', newNote)
     .then(response => {
       setNotes(notes.concat(response.data))
       setNoteContent("")
@@ -40,10 +40,7 @@ const App = () => {
     const note = notes.find(note => note.id === id)
     const changedNote = {...note, important : !note.important}
 
-    console.log(id)
-    console.log(changedNote)
-
-    const url = `http://localhost:3001/notes/${id}`
+    const url = `/api/notes/${id}`
 
     axios.put(url, changedNote)
     .then(response => {
@@ -51,15 +48,24 @@ const App = () => {
     })
   }
 
+  const deleteOf = (id) => {
+
+    const url = `/api/notes/${id}`
+
+    axios.delete(url).then(response => {
+      setNotes(notes.filter(note => note.id !== id))
+    })
+
+  }
+
   return <div>
 
-  <Display notes = {notes} toggleImportanceOf = {toggleImportanceOf}></Display>
+  <Display notes = {notes} toggleImportanceOf = {toggleImportanceOf} deleteOf = {deleteOf}></Display>
 
   <form onSubmit={addNote}>
     <input value={noteContent} onChange={handleNoteChange}></input>
     <button type="submit">save</button>
   </form>
-
 
   </div>
 }
