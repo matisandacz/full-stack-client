@@ -11,7 +11,7 @@ const App = () => {
   const [noteContent, setNoteContent] = useState("")
 
   useEffect(() => {
-    axios.get('https://frozen-spire-53974.herokuapp.com/api/notes').then(
+    axios.get('/api/notes').then(
     response => setNotes(response.data))
   }, [])
 
